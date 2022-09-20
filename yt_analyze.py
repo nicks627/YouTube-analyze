@@ -4,16 +4,16 @@ import json
 import pandas as pd
 import streamlit as st
 
-with open('secret.json') as f:
-    secret = json.load(f)
-
-DEVELOPER_KEY = secret['KEY']
+# with open('secret.json') as f:
+#     secret = json.load(f)
+secret = st.text_input('APIキーを入力してください')
+DEVELOPER_KEY = secret#secret['KEY']
 YOUTUBE_API_SERVICE_NAME = "youtube"
 YOUTUBE_API_VERSION = "v3"
+
 youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION,
 developerKey=DEVELOPER_KEY)
-
-
+    
 def video_search(youtube, q='自動化', max_results=50):
     response = youtube.search().list(
     q=q,
@@ -100,7 +100,7 @@ st.sidebar.write("""
 res = st.sidebar.slider("最大表示", 50, 1000, 50)
 
 
-st.markdown('### 洗濯中のパラメータ')
+st.markdown('### 選択中のパラメータ')
 st.markdown(f"""
 - 検索クエリ: {query}
 - 登録者数の閾値: {threshold}
